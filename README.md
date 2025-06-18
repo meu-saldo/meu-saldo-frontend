@@ -1,41 +1,12 @@
-# 💻 Meu Saldo - Frontend
+# React + Vite
 
-Este é o frontend da aplicação **Meu Saldo**, uma interface web moderna para controle de finanças pessoais. Desenvolvido em **React**, consome a API REST do backend para exibir transações, saldo e gráficos.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🛠 Tecnologias utilizadas
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- React + Vite
-- JavaScript
-- Tailwind CSS
-- Axios (para requisições HTTP)
-- React Router (para navegação)
-- JWT para autenticação
+## Expanding the ESLint configuration
 
----
-
-## 🚀 Como rodar localmente
-
-### 1. Clone o repositório
-
-```
-git clone https://github.com/seu-usuario/meu-saldo-frontend.git
-cd meu-saldo-frontend
-```
-
-### 2. Instale as dependências
-```
-npm install
-```
-
-### 3. Crie o arquivo .env
-#### Crie um arquivo .env com a URL da API:
-```
-VITE_API_URL=http://localhost:8080
-```
-
-### 4. Inicie o projeto
-```
-npm run dev
-```
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
