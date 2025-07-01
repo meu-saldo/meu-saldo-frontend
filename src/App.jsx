@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './App.css';
 
-  const GITHUB_OWNER = 'meu-saldo';
-  const GITHUB_REPO = 'meu-saldo-backend';
-  const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+const GITHUB_OWNER = 'meu-saldo';
+const GITHUB_REPO = 'meu-saldo-backend';
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 function App() {
-
   const [milestones, setMilestones] = useState([]);
   const [issues, setIssues] = useState({});
-  
+
   useEffect(() => {
     fetchMilestones();
   }, []);
@@ -43,14 +41,14 @@ function App() {
           headers,
           params: {
             milestone: milestoneNumber,
-            state: 'open',
+            state: 'all',
           },
         }
       );
 
-      const onlyIssues = response.data.filter(
-        (item) => !item.pull_request
-      );
+      const onlyIssues = response.data
+        .filter((item) => !item.pull_request)
+        .sort((a, b) => a.number - b.number);
 
       setIssues((prev) => ({
         ...prev,
@@ -65,40 +63,65 @@ function App() {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-4xl mb-6">🚀 Meu Saldo - Em Breve</h1>
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 px-6 py-10 font-sans">
+      <h1 className="text-4xl font-semibold text-center mb-14 tracking-tight">
+        🚀 <span className="text-white/90">Meu Saldo</span> – Roadmap
+      </h1>
 
-      {milestones.map((milestone) => (
-        <div key={milestone.id} className="mb-8">
-          <h2 className="text-2xl font-bold mb-2">{milestone.title}</h2>
-          <p className="mb-2">{milestone.description}</p>
-          <div className="mb-2">
-            🔓 {milestone.open_issues} abertas | 🔒 {milestone.closed_issues}{' '}
-            fechadas
-          </div>
+      <div className="space-y-10">
+        {milestones.map((milestone) => (
+          <div
+            key={milestone.id}
+            className="bg-white/5 border border-white/10 shadow-xl backdrop-blur-md rounded-2xl p-6"
+          >
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold text-white">{milestone.title}</h2>
+              {milestone.description && (
+                <p className="text-sm text-neutral-400 mt-1">{milestone.description}</p>
+              )}
+              <div className="text-xs text-neutral-500 mt-2">
+                🔓 {milestone.open_issues} abertas &nbsp;&nbsp;|&nbsp;&nbsp;
+                🔒 {milestone.closed_issues} fechadas
+              </div>
+            </div>
 
-          <ul className="list-disc ml-6">
-            {issues[milestone.number]?.length > 0 ? (
-              issues[milestone.number].map((issue) => (
-                <li key={issue.id}>
-                  <a
-                    href={issue.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+            <ul className="divide-y divide-white/10">
+              {issues[milestone.number]?.length > 0 ? (
+                issues[milestone.number].map((issue) => (
+                  <li
+                    key={issue.id}
+                    className="flex items-center justify-between py-3 text-sm group"
                   >
-                    #{issue.number} - {issue.title}
-                  </a>
-                </li>
-              ))
-            ) : (
-              <li>Carregando...</li>
-            )}
-          </ul>
-        </div>
-      ))}
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        checked={issue.state === 'closed'}
+                        readOnly
+                        className="w-4 h-4 accent-green-500 rounded border border-neutral-700 bg-neutral-900"
+                      />
+                      <a
+                        href={issue.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`transition-colors hover:text-white ${issue.state === 'closed'
+                          ? 'text-neutral-500 line-through'
+                          : 'text-neutral-200'
+                          }`}
+                      >
+                        #{issue.number} – {issue.title}
+                      </a>
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <li className="text-neutral-500 italic py-2">Carregando...</li>
+              )}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-export default App
+export default App;

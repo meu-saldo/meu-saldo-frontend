@@ -1,11 +1,20 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx,ts,tsx}"
   ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+  plugins: [
+  require('@tailwindcss/forms'),
+  require('@tailwindcss/typography'),
+],
+theme: {
+  extend: {
+    fontFamily: {
+      sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+    }
+  }
 }
+}
+
+
+
