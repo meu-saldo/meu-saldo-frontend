@@ -9,7 +9,8 @@ export default function LoginForm({ onLoginSuccess, onError, loading, setLoading
   const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault();;
+    onError(null);
     setLoading(true);
     try {
       const data = await login({ email, password });
@@ -75,7 +76,7 @@ export default function LoginForm({ onLoginSuccess, onError, loading, setLoading
       <div className="text-center mt-3">
         <p className="text-sm">
           Não possui uma conta?
-          <a href="/criar-conta" className="ml-1 text-green-600 hover:underline font-semibold">Criar conta</a>
+          <a href="/cadastro" className="ml-1 text-green-600 hover:underline font-semibold">Criar conta</a>
         </p>
       </div>
     </form>

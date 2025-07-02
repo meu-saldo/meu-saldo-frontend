@@ -57,7 +57,7 @@ export default function LoginPage() {
 
           <div className="flex-[0_0_55%] flex items-center justify-center h-full">
             <LoginForm
-              onLoginSuccess={() => (window.location.href = '/')}
+              onLoginSuccess={() => (window.location.href = '/em-breve')}
               onError={setError}
               loading={loading}
               setLoading={setLoading}
