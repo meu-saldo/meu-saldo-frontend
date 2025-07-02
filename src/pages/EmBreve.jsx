@@ -1,5 +1,6 @@
 import { useGitHubRoadmap } from '../hooks/useGitHubRoadmap';
 import MilestoneCard from '../components/MilestoneCard';
+import Layout from '../components/Layout';
 
 const GITHUB_OWNER = 'meu-saldo';
 const GITHUB_REPO = 'meu-saldo-backend';

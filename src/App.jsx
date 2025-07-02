@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import EmBreve from './pages/EmBreve';
 import './index.css';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 const GITHUB_OWNER = import.meta.env.VITE_GITHUB_OWNER || 'meu-saldo';
 const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO || 'meu-saldo-backend';
@@ -14,6 +15,7 @@ function App() {
       <Route path="/" element={<Navigate to="/em-breve" replace />} />
       <Route path="/em-breve" element={<EmBreve />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/cadastro" element={<RegisterPage />} />
     </Routes>
   );
 }

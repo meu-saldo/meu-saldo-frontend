@@ -15,7 +15,7 @@ export default function LoginPage() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationProgress, setNotificationProgress] = useState(100);
   const [loading, setLoading] = useState(false);
-  const notificationDuration = 5000;
+  const notificationDuration = 7000;
 
   useEffect(() => {
     let timer, progressTimer;
