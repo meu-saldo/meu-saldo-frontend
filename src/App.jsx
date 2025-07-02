@@ -12,7 +12,7 @@ const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || '';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/em-breve" replace />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/em-breve" element={<EmBreve />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/cadastro" element={<RegisterPage />} />
