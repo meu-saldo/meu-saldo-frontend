@@ -1,5 +1,6 @@
 import { useGitHubRoadmap } from '../hooks/useGitHubRoadmap';
 import MilestoneCard from '../components/MilestoneCard';
+import Layout from '../components/Layout';
 
 const GITHUB_OWNER = 'meu-saldo';
 const GITHUB_REPO = 'meu-saldo-backend';
@@ -13,31 +14,33 @@ function EmBreve() {
     );
 
     return (
-        <div className="min-h-screen bg-neutral-950 text-neutral-100 px-6 py-10 font-sans">
-            <h1 className="text-4xl font-semibold text-center mb-14 tracking-tight">
-                🚀 <span className="text-white/90">Meu Saldo</span> – Roadmap
-            </h1>
+        <Layout>
+            <div className="min-h-screen bg-neutral-950 text-neutral-100 px-6 py-10 font-sans">
+                <h1 className="text-4xl font-semibold text-center mb-14 tracking-tight">
+                    🚀 <span className="text-white/90">Meu Saldo</span> – Roadmap
+                </h1>
 
-            {error && (
-                <p className="text-red-500 text-center mb-10">
-                    Erro ao carregar dados: {error}
-                </p>
-            )}
+                {error && (
+                    <p className="text-red-500 text-center mb-10">
+                        Erro ao carregar dados: {error}
+                    </p>
+                )}
 
-            {loading ? (
-                <p className="text-neutral-500 text-center">Carregando roadmap...</p>
-            ) : (
-                <div className="space-y-10">
-                    {milestones.map((milestone) => (
-                        <MilestoneCard
-                            key={milestone.id}
-                            milestone={milestone}
-                            issues={issues[milestone.number]}
-                        />
-                    ))}
-                </div>
-            )}
-        </div>
+                {loading ? (
+                    <p className="text-neutral-500 text-center">Carregando roadmap...</p>
+                ) : (
+                    <div className="space-y-10">
+                        {milestones.map((milestone) => (
+                            <MilestoneCard
+                                key={milestone.id}
+                                milestone={milestone}
+                                issues={issues[milestone.number]}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
+        </Layout>
     );
 }
 
