@@ -12,15 +12,16 @@ export default function LoginForm({ onLoginSuccess, onError, loading, setLoading
     e.preventDefault();;
     onError(null);
     setLoading(true);
+
     try {
-      const data = await login({ email, password });
-      localStorage.setItem('token', data.token);
+      await login({ email, password });
       onLoginSuccess();
     } catch (err) {
       onError(err.message);
     } finally {
       setLoading(false);
     }
+  
   }
 
   return (

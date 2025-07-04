@@ -5,16 +5,16 @@ export async function login({ email, password }) {
     body: JSON.stringify({ email, password }),
   });
 
+  const data = await response.json();
+  
   if (!response.ok) {
-    let errMsg = 'Erro ao fazer login';
-    try {
-      const err = await response.json();
-      errMsg = err.message || err.error || errMsg;
-    } catch {}
-    throw new Error(errMsg);
+    throw new Error(data.message || 'Erro ao fazer login');
   }
 
-  return await response.json();
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('role', data.role);
+
+  return data;
 }
 
 export async function register({ name, email, password }) {

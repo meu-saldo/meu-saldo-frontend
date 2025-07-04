@@ -22,13 +22,17 @@ export default function LoginPage() {
     if (error) {
       setShowNotification(true);
       setNotificationProgress(100);
+
       const start = Date.now();
+
       progressTimer = setInterval(() => {
         const elapsed = Date.now() - start;
         setNotificationProgress(Math.max(0, 100 - (elapsed / notificationDuration) * 100));
       }, 30);
+
       timer = setTimeout(() => setShowNotification(false), notificationDuration);
     }
+
     return () => {
       clearTimeout(timer);
       clearInterval(progressTimer);
