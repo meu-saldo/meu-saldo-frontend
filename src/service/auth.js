@@ -11,8 +11,7 @@ export async function login({ email, password }) {
     throw new Error(data.message || 'Erro ao fazer login');
   }
 
-  localStorage.setItem('token', data.token);
-  localStorage.setItem('role', data.role);
+  storeAuthData(data);
 
   return data;
 }
@@ -36,3 +35,12 @@ export async function register({ name, email, password }) {
   return await response.json();
 }
 
+function storeAuthData({ token, role }) {
+  localStorage.setItem("token", token);
+  localStorage.setItem("role", role);
+}
+
+export function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("role");
+}

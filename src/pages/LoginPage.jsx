@@ -7,6 +7,8 @@ import finance from '../assets/finance.svg';
 import banking from '../assets/online-banking.svg';
 import personal from '../assets/personal-finance.svg';
 import receipt from '../assets/receipt.svg';
+import { useLocation, useNavigate } from 'react-router-dom';
+8
 
 const images = [finance, banking, personal, receipt];
 
@@ -16,6 +18,17 @@ export default function LoginPage() {
   const [notificationProgress, setNotificationProgress] = useState(100);
   const [loading, setLoading] = useState(false);
   const notificationDuration = 7000;
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setError(location.state.message)
+
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [location, navigate])
 
   useEffect(() => {
     let timer, progressTimer;

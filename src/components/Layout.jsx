@@ -1,4 +1,5 @@
 import { GithubLogo } from "phosphor-react";
+import LogoutButton from "./LogoutButton";
 
 export default function Layout({ children }) {
     return (
@@ -8,6 +9,9 @@ export default function Layout({ children }) {
                     <div className="flex items-center gap-2">
                         <GithubLogo size={22} className="text-white" />
                         <span className="font-semibold text-white/90">Meu Saldo</span>
+                    </div>
+                    <div>
+                        <LogoutButton />
                     </div>
                 </div>
             </header>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 export function useGitHubRoadmap() {
@@ -8,18 +9,39 @@ export function useGitHubRoadmap() {
 
   useEffect(() => {
     const fetchRoadmap = async () => {
+      const token = localStorage.getItem('token')
+
+      if (!token) {
+        setError("Usuário não autenticado. Faça o login novamente.");
+        setLoading(false);
+        return;
+      }
+
       setLoading(true);
       setError(null);
+
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/github/roadmap`); // ou URL completa do backend
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/github/roadmap`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        const data = response.data;
+        
         setMilestones(data.milestones);
         setIssues(data.issues);
+
       } catch (err) {
-        setError(err.message || "Erro desconhecido");
+        if (err.response) {
+          console.error("Data:", err.response.data);
+          console.error("Status", err.response.status);
+          setError(`Erro ${err.response.status}: ${err.response.message || 'Erro ao buscar dados'}`);
+        } else if (err.request) {
+          setError("Erro de rede. Verifique sua conexão ou a configuração de CORS.")
+        } else {
+          setError(err.message || "Erro desconhecido");
+        }
       } finally {
         setLoading(false);
       }
