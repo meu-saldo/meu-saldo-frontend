@@ -8,7 +8,6 @@ import banking from '../assets/online-banking.svg';
 import personal from '../assets/personal-finance.svg';
 import receipt from '../assets/receipt.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
-8
 
 const images = [finance, banking, personal, receipt];
 
@@ -22,33 +21,39 @@ export default function LoginPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Exibe mensagem que veio por redirecionamento (ex: AdminRoute)
   useEffect(() => {
-    if (location.state?.message) {
-      setError(location.state.message)
+    const message = location.state?.message;
 
-      navigate(location.pathname, { replace: true, state: null });
+    if (message) {
+      setError(message);
+
+      // Apaga a mensagem após leitura para não reaparecer em reload
+      setTimeout(() => {
+        navigate(location.pathname, { replace: true, state: null });
+      }, 100);
     }
-  }, [location, navigate])
+  }, [location, navigate]);
 
+  // Exibe a notificação e controla barra de progresso
   useEffect(() => {
-    let timer, progressTimer;
-    if (error) {
-      setShowNotification(true);
-      setNotificationProgress(100);
+    if (!error) return;
 
-      const start = Date.now();
+    setShowNotification(true);
+    setNotificationProgress(100);
 
-      progressTimer = setInterval(() => {
-        const elapsed = Date.now() - start;
-        setNotificationProgress(Math.max(0, 100 - (elapsed / notificationDuration) * 100));
-      }, 30);
+    const start = Date.now();
 
-      timer = setTimeout(() => setShowNotification(false), notificationDuration);
-    }
+    const progressTimer = setInterval(() => {
+      const elapsed = Date.now() - start;
+      setNotificationProgress(Math.max(0, 100 - (elapsed / notificationDuration) * 100));
+    }, 30);
+
+    const hideTimer = setTimeout(() => setShowNotification(false), notificationDuration);
 
     return () => {
-      clearTimeout(timer);
       clearInterval(progressTimer);
+      clearTimeout(hideTimer);
     };
   }, [error]);
 
@@ -61,6 +66,7 @@ export default function LoginPage() {
           progress={notificationProgress}
         />
       )}
+
       <div className="flex min-h-screen bg-gray-100 items-center justify-center">
         <div className="flex flex-row w-full max-w-6xl h-[80vh] gap-20 items-center justify-center">
           <div className="flex-[0_0_40%] flex items-center justify-center h-full relative">

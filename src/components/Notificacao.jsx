@@ -1,6 +1,6 @@
 import { X } from 'phosphor-react';
 
-export default function Notification({ message, onClose, progress }) {
+export default function Notificacao({ message, onClose, progress }) {
   return (
     <div className="fixed top-6 right-6 z-50 bg-red-500 text-white px-6 py-3 rounded shadow-lg animate-slide-in min-w-[260px]">
       <div className="flex items-center justify-between gap-4">

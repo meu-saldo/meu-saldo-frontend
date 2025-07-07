@@ -1,11 +1,14 @@
 import { LuLogOut } from "react-icons/lu";
 import Button from "./Button";
 import { logout } from "../service/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function LogoutButton() {
+    const navigate = useNavigate();
+
     function handleLogout() {
         logout();
-        window.location.href = '/login';
+        navigate("/login")
     }
 
     return (

@@ -24,6 +24,10 @@ export default function LoginForm({ onLoginSuccess, onError, loading, setLoading
   
   }
 
+  const handleGoogleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_GOOGLE_LOGIN}`;
+  };
+
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md p-4 md:p-8">
       <h2 className="text-xl font-bold text-center mb-4">Meu Saldo</h2>
@@ -70,6 +74,7 @@ export default function LoginForm({ onLoginSuccess, onError, loading, setLoading
       </div>
       <button
         type="button"
+        onClick={handleGoogleLogin}
         className="w-full flex items-center justify-center gap-2 border border-gray-400 py-2 rounded bg-gray-100 hover:bg-gray-200 transition cursor-pointer"
       >
         <FcGoogle size={20} /> Google

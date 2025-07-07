@@ -1,5 +1,7 @@
 import './index.css';
 import AppRoutes from './routes/AppRoutes';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const GITHUB_OWNER = import.meta.env.VITE_GITHUB_OWNER || 'meu-saldo';
 const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO || 'meu-saldo-backend';
