@@ -2,6 +2,7 @@ import { Eye, EyeSlash } from 'phosphor-react';
 import { useState } from 'react';
 import { register } from '../service/auth';
 import InputField from './InputField';
+import Logo from './Logo';
 
 
 export default function RegisterForm({ onRegisterSuccess, onError, loading, setLoading }) {
@@ -43,7 +44,9 @@ export default function RegisterForm({ onRegisterSuccess, onError, loading, setL
 
     return (
         <form onSubmit={handleSubmit} className="w-full max-w-md p-4 md:p-8">
-            <h2 className="text-2xl font-bold mb-6 text-center">Criar Conta</h2>
+            <Logo />
+            <h2 className="text-2xl font-bold text-center">Criar Conta</h2>
+            <p className="text-md text-center mb-4">Crie uma conta para acessar o Meu Saldo</p>
 
             {/* Nome */}
             <div className="mb-4">

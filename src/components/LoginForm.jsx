@@ -2,6 +2,7 @@ import { Eye, EyeSlash } from 'phosphor-react';
 import { FcGoogle } from 'react-icons/fc';
 import { useState } from 'react';
 import { login } from '../service/auth';
+import Logo from './Logo';
 
 export default function LoginForm({ onLoginSuccess, onError, loading, setLoading }) {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ export default function LoginForm({ onLoginSuccess, onError, loading, setLoading
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md p-4 md:p-8">
-      <h2 className="text-xl font-bold text-center mb-4">Meu Saldo</h2>
+      <Logo />
       <h2 className="text-2xl font-bold text-center">Bem-vindo de volta!</h2>
       <p className="text-md text-center mb-4">Faça login para acessar a sua conta</p>
       <input
