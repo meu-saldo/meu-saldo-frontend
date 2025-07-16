@@ -1,6 +1,6 @@
 import './index.css';
 import AppRoutes from './routes/AppRoutes';
-import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'sonner';
 
 
 const GITHUB_OWNER = import.meta.env.VITE_GITHUB_OWNER || 'meu-saldo';
@@ -10,7 +10,10 @@ const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || '';
 
 function App() {
   return (
-    <AppRoutes />
+    <>
+      <AppRoutes />
+      <Toaster richColors position='top-right' />
+    </>
   );
 }
 

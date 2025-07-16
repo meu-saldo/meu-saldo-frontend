@@ -27,6 +27,23 @@ export default function AppRoutes() {
             />
 
             <Route
+                path="/transactions"
+                element={
+                    <PrivateRoute>
+                        <Home />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/calendar"
+                element={
+                    <PrivateRoute>
+                        <Home />
+                    </PrivateRoute>
+                }
+            />
+
+            <Route
                 path="/em-breve"
                 element={
                     <AdminRoute>
