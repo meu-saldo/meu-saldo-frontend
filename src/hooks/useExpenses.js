@@ -7,10 +7,12 @@ export default function useExpenses() {
     const [error, setError] = useState(null);
 
     const carregarDespesas = async () => {
+        console.log("Atualizando despesas");
         try {
             setLoading(true);
             const data = await getExpenses();
             setExpenses(data);
+            console.log("🔃 Dados recebidos: ", data);
             setError(null);
         } catch (err) {
             setError("Erro ao buscar despesas")

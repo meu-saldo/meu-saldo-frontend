@@ -1,8 +1,8 @@
 import { Eye, EyeSlash } from 'phosphor-react';
 import { FcGoogle } from 'react-icons/fc';
 import { useState } from 'react';
-import { login } from '../service/auth';
-import Logo from './Logo';
+import { login } from '../../service/auth';
+import Logo from '../Logo';
 
 export default function LoginForm({ onLoginSuccess, onError, loading, setLoading }) {
   const [email, setEmail] = useState('');

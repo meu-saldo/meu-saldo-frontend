@@ -1,13 +1,13 @@
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import Button from "./Button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import Button from "../Button";
 import { X } from "phosphor-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { useState } from "react";
 import api from "@/service/axiosConfig";
 import { createExpense } from "@/service/expenses";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 
-export default function NewExpenseModal({ isOpen, onOpenChange }) {
+export default function NewExpenseModal({ isOpen, onOpenChange, onCreated }) {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [type, setType] = useState("");

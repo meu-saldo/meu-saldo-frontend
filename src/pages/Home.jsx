@@ -1,17 +1,17 @@
 import Logo from '@/components/Logo';
 import Navbar from '@/components/Navbar';
 import LogoutButton from '@/components/LogoutButton';
-import ExpenseTable from '@/components/ExpenseTable';
+import ExpenseTable from '@/components/tables/ExpenseTable';
 import Button from '@/components/Button';
 import { Crosshair, Plus } from 'phosphor-react';
 import { useState } from 'react';
-import NewExpenseModal from '@/components/NewExpenseModal';
+import NewExpenseModal from '@/components/modals/NewExpenseModal';
 import useExpenses from '@/hooks/useExpenses';
 
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { expenses, carregarDespesas } = useExpenses();
+    const { expenses, loading, error, carregarDespesas } = useExpenses();
 
     return (
         <main className="flex flex-col items-center min-h-screen">

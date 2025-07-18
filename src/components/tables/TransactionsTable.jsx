@@ -10,7 +10,7 @@ import useTransactions from "@/hooks/useTransactions";
 import { Info } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import TransactionModal from "./TransactionModal";
+import TransactionModal from "../modals/TransactionModal";
 
 export default function TransactionsTable() {
     const { transactions, loading, error } = useTransactions();

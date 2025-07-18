@@ -3,8 +3,8 @@ import TableTemplate from "./TableTemplate";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-export default function ExpenseTable() {
-    const { expenses, loading, error } = useExpenses();
+export default function ExpenseTable({ expenses, loading, error }) {
+    // const { expenses, loading, error } = useExpenses();
 
     console.log("Dados recebidos do hook", expenses);
 

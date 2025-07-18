@@ -1,8 +1,8 @@
 import { Eye, EyeSlash } from 'phosphor-react';
 import { useState } from 'react';
-import { register } from '../service/auth';
+import { register } from '../../service/auth';
 import InputField from './InputField';
-import Logo from './Logo';
+import Logo from '../Logo';
 
 
 export default function RegisterForm({ onRegisterSuccess, onError, loading, setLoading }) {

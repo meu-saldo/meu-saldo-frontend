@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Notificacao from '../components/Notificacao';
 import Carrossel from '../components/Carrossel';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 
 import finance from '../assets/finance.svg';
 import banking from '../assets/online-banking.svg';

@@ -7,7 +7,7 @@ import Logado from "../pages/Logado";
 import Home from "../pages/Home";
 import PrivateRoute from "./PrivateRoute";
 import OAuth2RedirectHandler from "../pages/OAuth2RedirectHandler";
-import TransactionsTable from "@/components/TransactionsTable";
+import TransactionsTable from "@/components/tables/TransactionsTable";
 
 export default function AppRoutes() {
     return (
