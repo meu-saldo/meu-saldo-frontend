@@ -58,10 +58,10 @@ export default function TransactionsTable() {
                             <TableCell className="text-center text-red-600">- R$ {transaction.amount.toFixed(2)}</TableCell>
                             <TableCell className="text-center font-medium">R$ {transaction.amount.toFixed(2)}</TableCell>
                             <TableCell className="place-items-center">
-                                <Info 
-                                    size={24} 
+                                <Info
+                                    size={24}
                                     className="cursor-pointer"
-                                    onClick={() => handleOpenModal(transaction)} 
+                                    onClick={() => handleOpenModal(transaction)}
                                 />
                             </TableCell>
                         </TableRow>
@@ -69,7 +69,7 @@ export default function TransactionsTable() {
                 </TableBody>
             </Table>
 
-            <TransactionModal 
+            <TransactionModal
                 transaction={selectedTransaction}
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}

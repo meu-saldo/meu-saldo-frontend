@@ -7,6 +7,7 @@ import Logado from "../pages/Logado";
 import Home from "../pages/Home";
 import PrivateRoute from "./PrivateRoute";
 import OAuth2RedirectHandler from "../pages/OAuth2RedirectHandler";
+import TransactionsTable from "@/components/TransactionsTable";
 
 export default function AppRoutes() {
     return (
@@ -30,7 +31,7 @@ export default function AppRoutes() {
                 path="/transactions"
                 element={
                     <PrivateRoute>
-                        <Home />
+                        <TransactionsTable />
                     </PrivateRoute>
                 }
             />
