@@ -12,9 +12,9 @@ export default function AdminRoute({ children }) {
         />;
     }
 
-    if (role !== "ADMIN") {
+    if (isAuthenticated && role !== "ADMIN") {
         return <Navigate
-            to="/login"
+            to="/home"
             state={{ message: "Você não tem permissão para acessar essa página" }}
             replace
         />;

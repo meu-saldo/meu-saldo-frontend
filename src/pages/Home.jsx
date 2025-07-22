@@ -4,17 +4,23 @@ import LogoutButton from '@/components/LogoutButton';
 import ExpenseTable from '@/components/tables/ExpenseTable';
 import Button from '@/components/Button';
 import { Plus } from 'phosphor-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NewExpenseModal from '@/components/modals/NewExpenseModal';
 import EditExpenseModal from '@/components/modals/EditExpenseModal';
 import useExpenses from '@/hooks/useExpenses';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { useAuth } from '@/hooks/useAuth';
+import ExpenseTableSkeleton from '@/components/tables/ExpenseTableSkeleton';
 
 export default function Home() {
     const { expenses, loading, error, carregarDespesas } = useExpenses();
-
     const [selectedExpense, setSelectedExpense] = useState(null);
     const [isNewModalOpen, setIsNewModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+    // const { user } = useAuth();
 
     const handleNewExpense = () => {
         setIsNewModalOpen(true);
@@ -29,6 +35,24 @@ export default function Home() {
         setIsEditModalOpen(false);
         setSelectedExpense(null);
     };
+
+    const handleActionSuccess = (message) => {
+        carregarDespesas();
+        toast.success(message);
+    }
+
+    useEffect(() => {
+        const message = location.state?.message;
+
+        if (message) {
+            toast.error(message);
+
+            setTimeout(() => {
+                navigate(location.pathname, { replace: true, state: null });
+            }, 100);
+        }
+    }, [location, navigate]);
+
 
     return (
         <main className="flex flex-col items-center min-h-screen">
@@ -48,7 +72,7 @@ export default function Home() {
                 <NewExpenseModal
                     isOpen={isNewModalOpen}
                     onOpenChange={setIsNewModalOpen}
-                    onCreated={carregarDespesas}
+                    onCreated={() => handleActionSuccess("Nova despesa adicionada com sucesso!")}
                 />
 
                 {/* Modal de Edição de Despesa */}
@@ -56,8 +80,8 @@ export default function Home() {
                     isOpen={isEditModalOpen}
                     onOpenChange={handleCloseEditModal}
                     expense={selectedExpense}
-                    onSaved={carregarDespesas}
-                    onDeleted={carregarDespesas}
+                    onSaved={() => handleActionSuccess("Despesa editada com sucesso!")}
+                    onDeleted={() => handleActionSuccess("Despesa excluída com sucesso!")}
                 />
 
                 <div className="w-full mx-auto border-1 border-gray-400 rounded-md p-4">
@@ -71,15 +95,20 @@ export default function Home() {
                             Nova despesa
                         </Button>
                     </div>
-                    <div className="overflow-hidden">
-                        <div className="max-h-96 overflow-y-auto">
+                    <div className="relative max-h-90 overflow-y-auto">
+                        {loading && <ExpenseTableSkeleton rows={5} />}
+                        {error && !loading && (
+                            <div className="text-center p-8 text-destructive bg-destructive/10 rounded-md">
+                                <p>Ocorreu um erro ao buscar despesas.</p>
+                                <p>{error.message}</p>
+                            </div>
+                        )}
+                        {!loading && !error && (
                             <ExpenseTable
                                 expenses={expenses}
-                                loading={loading}
-                                error={error}
                                 onRowClick={handleEditExpense}
                             />
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>

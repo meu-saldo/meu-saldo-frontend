@@ -2,16 +2,7 @@ import TableTemplate from "./TableTemplate";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-export default function ExpenseTable({ expenses, loading, error, onRowClick }) {
-
-    useEffect(() => {
-        if (error) {
-            toast.error("Erro ao buscar despesas", {
-                description: error,
-                duration: 5000,
-            });
-        }
-    }, [error])
+export default function ExpenseTable({ expenses, onRowClick }) {
 
     const header = [
         {
@@ -22,11 +13,12 @@ export default function ExpenseTable({ expenses, loading, error, onRowClick }) {
         {
             header: 'Tipo',
             accessor: 'type', 
-            cell: (typeObject) => {
-                if (typeObject && typeObject.label) {
+            align: 'center',
+            cell: (row) => {
+                if (row.type && row.type.label) {
                     return (
                         <span className='px-4 py-1 bg-gray-300 rounded-full text-xs'>
-                            {typeObject.label}
+                            {row.type.label}
                         </span>
                     )
                 }
@@ -36,7 +28,8 @@ export default function ExpenseTable({ expenses, loading, error, onRowClick }) {
         {
             header: 'Valor',
             accessor: 'amount',
-            cell: (value) => `R$ ${Number(value || 0).toFixed(2).replace('.', ',')}`,
+            align: 'right',
+            cell: (row) => `R$ ${Number(row.amount || 0).toFixed(2).replace('.', ',')}`,
         }
     ];
 
@@ -44,9 +37,8 @@ export default function ExpenseTable({ expenses, loading, error, onRowClick }) {
         <TableTemplate
             column={header}
             data={expenses}
-            loading={loading}
-            error={error}
             onRowClick={onRowClick}
+            emptyStateMessage="Nenhuma despesa encontrada."
         />
     );
 }
