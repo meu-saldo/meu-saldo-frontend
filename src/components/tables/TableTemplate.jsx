@@ -1,11 +1,11 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
-export default function TableTemplate({ column, data, loading, error }) {
+export default function TableTemplate({ column, data, loading, error, onRowClick }) {
 
     return (
         <>
             <Table>
-                <TableHeader >
+                <TableHeader>
                     <TableRow className={"sticky top-0 hover:bg-transparent"}>
                         {column.map((col, colIdx) => (
                             <TableHead
@@ -20,21 +20,25 @@ export default function TableTemplate({ column, data, loading, error }) {
                 <TableBody>
                     {loading ? (
                         <TableRow>
-                            <TableCell className={"text-center text-gray-900"} >Carregando...</TableCell>
+                            <TableCell colSpan={column.length} className={"text-center text-gray-900 py-4"}>Carregando...</TableCell>
                         </TableRow>
                     ) : error ? (
                         <TableRow>
-                            <TableCell>Erro: {error.message}</TableCell>
+                            <TableCell colSpan={column.length} className={"text-center text-red-500 py-4"}>Erro ao carregar dados.</TableCell>
                         </TableRow>
                     ) : data.length === 0 ? (
                         <TableRow>
-                            <TableCell colSpan={column.length} className={"text-center text-muted-foreground py-4"} >Nenhum dado encontrado</TableCell>
+                            <TableCell colSpan={column.length} className={"text-center text-muted-foreground py-4"}>Nenhum dado encontrado</TableCell>
                         </TableRow>
                     ) : (
                         data.map((row, idx) => (
-                            <TableRow className={"cursor-pointer"} key={idx}>
+                            <TableRow
+                                key={row.id || idx}
+                                className={"cursor-pointer"}
+                                onClick={() => onRowClick?.(row)}
+                            >
                                 {column.map((col, colIdx) => (
-                                    <TableCell 
+                                    <TableCell
                                         key={col.accessor}
                                         className={colIdx === 0 ? "text-left" : "text-center"}
                                     >

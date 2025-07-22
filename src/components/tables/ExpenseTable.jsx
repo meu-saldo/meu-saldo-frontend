@@ -1,12 +1,8 @@
-import useExpenses from "@/hooks/useExpenses";
 import TableTemplate from "./TableTemplate";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-export default function ExpenseTable({ expenses, loading, error }) {
-    // const { expenses, loading, error } = useExpenses();
-
-    console.log("Dados recebidos do hook", expenses);
+export default function ExpenseTable({ expenses, loading, error, onRowClick }) {
 
     useEffect(() => {
         if (error) {
@@ -25,13 +21,22 @@ export default function ExpenseTable({ expenses, loading, error }) {
         },
         {
             header: 'Tipo',
-            accessor: 'type',
-            cell: (value) => <span className='px-4 py-1 bg-gray-300 rounded-full text-xs'>{value}</span>
+            accessor: 'type', 
+            cell: (typeObject) => {
+                if (typeObject && typeObject.label) {
+                    return (
+                        <span className='px-4 py-1 bg-gray-300 rounded-full text-xs'>
+                            {typeObject.label}
+                        </span>
+                    )
+                }
+                return 'Indefinido';
+            }
         },
         {
             header: 'Valor',
             accessor: 'amount',
-            cell: (value) => `R$ ${value}`
+            cell: (value) => `R$ ${Number(value || 0).toFixed(2).replace('.', ',')}`,
         }
     ];
 
@@ -41,6 +46,7 @@ export default function ExpenseTable({ expenses, loading, error }) {
             data={expenses}
             loading={loading}
             error={error}
+            onRowClick={onRowClick}
         />
     );
 }
