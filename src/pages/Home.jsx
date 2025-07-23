@@ -1,5 +1,5 @@
 import Logo from '@/components/Logo';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/Sidebar';
 import LogoutButton from '@/components/LogoutButton';
 import ExpenseTable from '@/components/tables/ExpenseTable';
 import Button from '@/components/Button';
@@ -55,47 +55,41 @@ export default function Home() {
 
 
     return (
-        <main className="flex flex-col items-center min-h-screen">
-            <header className="flex justify-between items-center py-4 px-8 sm:px-26 mb-2 w-full">
-                <Logo />
-                <Navbar />
-                <LogoutButton />
-            </header>
+        <div className="h-full flex flex-col p-4 sm:p-6 lg:p-8 gap-6">
+            <h1 className="text-2xl md:text-3xl font-bold mb-2">Bem-vindo, Nathan!</h1>
+            <p className="text-muted-foreground mb-8">
+                Aqui está um resumo de suas atividades do mês atual.
+            </p>
 
-            <div className="flex flex-col w-6xl">
-                <h1 className="text-3xl font-bold mb-2">Bem-vindo, Nathan!</h1>
-                <p className="text-muted-foreground mb-8">
-                    Aqui está um resumo de suas atividades do mês atual.
-                </p>
+            {/* Modal de Nova Despesa */}
+            <NewExpenseModal
+                isOpen={isNewModalOpen}
+                onOpenChange={setIsNewModalOpen}
+                onCreated={() => handleActionSuccess("Nova despesa adicionada com sucesso!")}
+            />
 
-                {/* Modal de Nova Despesa */}
-                <NewExpenseModal
-                    isOpen={isNewModalOpen}
-                    onOpenChange={setIsNewModalOpen}
-                    onCreated={() => handleActionSuccess("Nova despesa adicionada com sucesso!")}
-                />
+            {/* Modal de Edição de Despesa */}
+            <EditExpenseModal
+                isOpen={isEditModalOpen}
+                onOpenChange={handleCloseEditModal}
+                expense={selectedExpense}
+                onSaved={() => handleActionSuccess("Despesa editada com sucesso!")}
+                onDeleted={() => handleActionSuccess("Despesa excluída com sucesso!")}
+            />
 
-                {/* Modal de Edição de Despesa */}
-                <EditExpenseModal
-                    isOpen={isEditModalOpen}
-                    onOpenChange={handleCloseEditModal}
-                    expense={selectedExpense}
-                    onSaved={() => handleActionSuccess("Despesa editada com sucesso!")}
-                    onDeleted={() => handleActionSuccess("Despesa excluída com sucesso!")}
-                />
-
-                <div className="w-full mx-auto border-1 border-gray-400 rounded-md p-4">
-                    <div className="flex justify-between mb-4">
-                        <h2 className="font-medium text-2xl">Despesas</h2>
-                        <Button
-                            variant="outline"
-                            iconLeft={<Plus className="text-gray-900" size={16} />}
-                            onClick={handleNewExpense}
-                        >
-                            Nova despesa
-                        </Button>
-                    </div>
-                    <div className="relative max-h-90 overflow-y-auto">
+            <div className="flex flex-col flex-1 border border-gray-200 rounded-lg bg-white shadow-sm overflow-hidden">
+                <div className="flex justify-between items-center p-4 md:p-6 border-b">
+                    <h2 className="font-medium text-xl md:text-2xl">Despesas</h2>
+                    <Button
+                        variant="black-outline"
+                        iconLeft={<Plus className="text-gray-900" size={16} />}
+                        onClick={handleNewExpense}
+                    >
+                        Nova despesa
+                    </Button>
+                </div>
+                <div className="flex-1 min-h-0 overflow-y-auto">
+                    <div className="p-1 md:p-2">
                         {loading && <ExpenseTableSkeleton rows={5} />}
                         {error && !loading && (
                             <div className="text-center p-8 text-destructive bg-destructive/10 rounded-md">
@@ -112,6 +106,6 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

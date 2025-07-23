@@ -3,7 +3,7 @@ import Button from "./Button";
 import { logout } from "../service/auth";
 import { useNavigate } from "react-router-dom";
 
-export default function LogoutButton() {
+export default function LogoutButton({ iconSize = 16, ...props }) {
     const navigate = useNavigate();
 
     function handleLogout() {
@@ -14,9 +14,8 @@ export default function LogoutButton() {
     return (
         <Button
             onClick={handleLogout}
-            variant="danger"
-            size="sm"
-            iconLeft={<LuLogOut size={16} />}
+            iconLeft={<LuLogOut size={iconSize} />}
+            {...props}
         >
             Sair
         </Button>

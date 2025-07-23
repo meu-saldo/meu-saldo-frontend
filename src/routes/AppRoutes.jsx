@@ -8,6 +8,8 @@ import Home from "../pages/Home";
 import PrivateRoute from "./PrivateRoute";
 import OAuth2RedirectHandler from "../pages/OAuth2RedirectHandler";
 import TransactionsTable from "@/components/tables/TransactionsTable";
+import MainLayout from "@/layouts/MainLayout";
+import ProtectedLayout from "@/layouts/ProtectedLayout";
 
 export default function AppRoutes() {
     return (
@@ -15,43 +17,15 @@ export default function AppRoutes() {
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/cadastro" element={<RegisterPage />} />
-            <Route path="/logado" element={<Logado />} />
             <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+            <Route path="/logado" element={<Logado />} />
 
-            <Route
-                path="/home"
-                element={
-                    <PrivateRoute>
-                        <Home />
-                    </PrivateRoute>
-                }
-            />
-
-            <Route
-                path="/transactions"
-                element={
-                    <PrivateRoute>
-                        <TransactionsTable />
-                    </PrivateRoute>
-                }
-            />
-            <Route
-                path="/calendar"
-                element={
-                    <PrivateRoute>
-                        <Home />
-                    </PrivateRoute>
-                }
-            />
-
-            <Route
-                path="/em-breve"
-                element={
-                    <AdminRoute>
-                        <EmBreve />
-                    </AdminRoute>
-                }
-            />
+            <Route element={<ProtectedLayout />}>
+                <Route path="/home"element={<Home />}/>
+                <Route path="/transactions" element={<TransactionsTable />}/>
+                <Route path="/calendar" element={<Home />}/>
+                <Route path="/em-breve" element={<EmBreve />}/>
+            </Route>
 
             <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
