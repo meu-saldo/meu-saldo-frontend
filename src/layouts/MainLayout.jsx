@@ -6,7 +6,7 @@ export default function MainLayout() {
         <div className="bg-gray-100">
             <Sidebar />
 
-            <main className="md:pl-[17rem] h-screen flex flex-col">
+            <main className="md:pl-[17rem] h-screen flex flex-col px-4">
                 <Outlet />
             </main>
         </div>
