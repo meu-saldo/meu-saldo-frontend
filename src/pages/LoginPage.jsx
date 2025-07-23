@@ -34,7 +34,11 @@ export default function LoginPage() {
   return (
     <>
       <div className="flex min-h-screen bg-gray-100 items-center justify-center">
-        <div className="flex flex-row w-full max-w-6xl h-[80vh] gap-20 items-center justify-center">
+        <div className="
+          flex flex-col w-full items-center justify-center px-10
+          md:flex-row md:h-[80vh] md:gap-20 
+          max-w-6xl
+        ">
           <div className="flex-[0_0_40%] flex items-center justify-center h-full relative">
             <div className="bg-green-500 rounded-3xl w-full h-full shadow-lg overflow-hidden flex items-center justify-center relative">
               <Carrossel images={images} />
@@ -44,7 +48,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="flex-[0_0_55%] flex items-center justify-center h-full">
+          <div className="md:flex-[0_0_55%] flex items-center justify-center h-full w-full">
             <LoginForm
               onLoginSuccess={() => navigate("/home")}
               onError={setError}
