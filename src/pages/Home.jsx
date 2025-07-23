@@ -55,8 +55,11 @@ export default function Home() {
 
 
     return (
-        <div className="h-full flex flex-col p-4 sm:p-6 lg:p-8 gap-6">
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">Bem-vindo, Nathan!</h1>
+        <div className="
+            flex flex-col gap-2 py-6
+            md:h-153 md:mt-4 md:ml-4 md:py-0
+        ">
+            <h1 className="text-2xl md:text-3xl font-bold">Bem-vindo, Nathan!</h1>
             <p className="text-muted-foreground mb-8">
                 Aqui está um resumo de suas atividades do mês atual.
             </p>

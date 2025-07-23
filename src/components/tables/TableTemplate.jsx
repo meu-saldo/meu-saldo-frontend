@@ -24,8 +24,8 @@ export default function TableTemplate({ column, data, onRowClick, emptyStateMess
                             onClick={() => handleRowClick(row)}
                             onKeyDown={(e) => handleKeyDown(e, row)}
                             className={`
-                                md:grid ${gridTemplateColumns} gap-4 items-center px-4 py-3
-                                border-b last:border-b-0
+                                flex flex-col border-b last:border-b-0 items-start px-4 py-3
+                                md:grid ${gridTemplateColumns} 
                                 ${onRowClick ? "cursor-pointer hover:bg-muted/50 transition-colors" : ""}
                             `}
                             tabIndex={onRowClick ? 0 : -1}
@@ -38,7 +38,11 @@ export default function TableTemplate({ column, data, onRowClick, emptyStateMess
 
                                 return (
                                     <div key={col.accessor} className={`py-1 md:py-0 text-${col.align || 'left'}`}>
-                                        <span className="md:hidden text-xs font-bold text-gray-500 mr-2">{col.header}:</span>
+                                        {/* <span className="
+                                        hidden text-xs font-bold text-gray-500 mr-2
+                                    ">
+                                        {col.header}:
+                                    </span> */}
                                         {cellContent}
                                     </div>
                                 );
