@@ -46,7 +46,7 @@ export default function RegisterForm({ onRegisterSuccess, onError, loading, setL
         <form onSubmit={handleSubmit} className="w-full max-w-md p-4 md:p-8">
             <Logo />
             <h2 className="text-2xl font-bold text-center">Criar Conta</h2>
-            <p className="text-md text-center mb-4">Crie uma conta para acessar o Meu Saldo</p>
+            <p className="text-md text-center mb-4">Crie uma conta para fazer login</p>
 
             {/* Nome */}
             <div className="mb-4">

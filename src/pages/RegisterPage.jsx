@@ -7,45 +7,37 @@ import finance from '../assets/finance.svg';
 import banking from '../assets/online-banking.svg';
 import personal from '../assets/personal-finance.svg';
 import receipt from '../assets/receipt.svg';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const images = [finance, banking, personal, receipt];
 
 export default function RegisterPage() {
     const [error, setError] = useState(null);
-    const [showNotification, setShowNotification] = useState(false);
-    const [notificationProgress, setNotificationProgress] = useState(100);
     const [loading, setLoading] = useState(false);
-    const notificationDuration = 7000;
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        let timer, progressTimer;
-        if (error) {
-            setShowNotification(true);
-            setNotificationProgress(100);
-            const start = Date.now();
-            progressTimer = setInterval(() => {
-                const elapsed = Date.now() - start;
-                setNotificationProgress(Math.max(0, 100 - (elapsed / notificationDuration) * 100));
-            }, 30);
-            timer = setTimeout(() => setShowNotification(false), notificationDuration);
+        const message = location.state?.message;
+
+        if (message) {
+            toast.error(message);
+
+            setTimeout(() => {
+                navigate(location.pathname, { replace: true, state: null });
+            }, 100)
         }
-        return () => {
-            clearTimeout(timer);
-            clearInterval(progressTimer);
-        };
-    }, [error]);
+    }, [location, navigate]);
 
     return (
         <>
-            {showNotification && (
-                <Notificacao
-                    message={error}
-                    onClose={() => setShowNotification(false)}
-                    progress={notificationProgress}
-                />
-            )}
             <div className="flex min-h-screen bg-gray-100 items-center justify-center">
-                <div className="flex flex-row w-full max-w-6xl h-[80vh] gap-20 items-center justify-center">
+                <div className="
+                    flex flex-col w-full items-center justify-center
+                    md:flex-row md:h-[80vh] md:gap-20 px-10
+                    max-w-6xl 
+                ">
                     <div className="flex-[0_0_40%] flex items-center justify-center h-full relative">
                         <div className="bg-green-500 rounded-3xl w-full h-full shadow-lg overflow-hidden flex items-center justify-center relative">
                             <Carrossel images={images} />
@@ -55,7 +47,7 @@ export default function RegisterPage() {
                         </div>
                     </div>
 
-                    <div className="flex-[0_0_55%] flex items-center justify-center h-full">
+                    <div className="md:flex-[0_0_55%] flex items-center justify-center h-full w-full">
                         <RegisterForm
                             onRegisterSuccess={() => (window.location.href = '/login')}
                             onError={setError}
