@@ -1,6 +1,3 @@
-import Logo from '@/components/Logo';
-import Navbar from '@/components/Sidebar';
-import LogoutButton from '@/components/LogoutButton';
 import ExpenseTable from '@/components/tables/ExpenseTable';
 import Button from '@/components/Button';
 import { Plus } from 'phosphor-react';
@@ -10,11 +7,13 @@ import EditExpenseModal from '@/components/modals/EditExpenseModal';
 import useExpenses from '@/hooks/useExpenses';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useAuth } from '@/hooks/useAuth';
 import ExpenseTableSkeleton from '@/components/tables/ExpenseTableSkeleton';
+import IncomeTable from '@/components/tables/IncomeTable';
+import useIncomes from '@/hooks/useIncomes';
 
 export default function Home() {
     const { expenses, loading, error, carregarDespesas } = useExpenses();
+    const { incomes, loadingIncome, errorIncome, loadIncomes } = useIncomes();
     const [selectedExpense, setSelectedExpense] = useState(null);
     const [isNewModalOpen, setIsNewModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -109,6 +108,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
         </div>
     );
 }
